@@ -5,7 +5,7 @@ model = torch.hub.load("PeterL1n/RobustVideoMatting", "mobilenetv3").cuda() # or
 convert_video = torch.hub.load("PeterL1n/RobustVideoMatting", "converter")
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--input_video", type=str, required=True, help="Input Video")
+parser.add_argument("--input_path", type=str, required=True, help="Input Path")
 parser.add_argument("--output_alpha", type=str, required=True, help="Output Alpha Path")
 parser.add_argument("--output_composed", type=str, help="Output Composed Path")
 parser.add_argument("--output_raw_pred", type=str,  help="Output Raw Prediction Path")
