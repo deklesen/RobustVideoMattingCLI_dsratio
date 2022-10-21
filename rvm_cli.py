@@ -15,7 +15,7 @@ args = parser.parse_args()
 
 convert_video(
     model,                           # The loaded model, can be on any device (cpu or cuda).
-    input_source=args.input_video,        # A video file or an image sequence directory.
+    input_source=args.input_path,        # A video file or an image sequence directory.
     downsample_ratio=None,           # [Optional] If None, make downsampled max size be 512px.
     output_type='png_sequence' if args.save_frames else 'video',             # Choose "video" or "png_sequence"
     output_composition=args.output_composed,    # File path if video; directory path if png sequence.
