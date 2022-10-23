@@ -1,19 +1,21 @@
 import torch
 import argparse
+from multiprocessing import freeze_support
+if __name__ == '__main__':
+	freeze_support()
+	model = torch.hub.load("PeterL1n/RobustVideoMatting", "mobilenetv3").cuda() # or "resnet50"
+	convert_video = torch.hub.load("PeterL1n/RobustVideoMatting", "converter")
 
-model = torch.hub.load("PeterL1n/RobustVideoMatting", "mobilenetv3").cuda() # or "resnet50"
-convert_video = torch.hub.load("PeterL1n/RobustVideoMatting", "converter")
+	parser = argparse.ArgumentParser()
+	parser.add_argument("--input_path", type=str, required=True, help="Input Path")
+	parser.add_argument("--output_alpha", type=str, required=True, help="Output Alpha Path")
+	parser.add_argument("--output_composed", type=str, help="Output Composed Path")
+	parser.add_argument("--output_raw_pred", type=str,  help="Output Raw Prediction Path")
+	parser.add_argument("--save_frames", action='store_true',  help="Save Frames Instead of Videos")
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--input_path", type=str, required=True, help="Input Path")
-parser.add_argument("--output_alpha", type=str, required=True, help="Output Alpha Path")
-parser.add_argument("--output_composed", type=str, help="Output Composed Path")
-parser.add_argument("--output_raw_pred", type=str,  help="Output Raw Prediction Path")
-parser.add_argument("--save_frames", action='store_true',  help="Save Frames Instead of Videos")
+	args = parser.parse_args()
 
-args = parser.parse_args()
-
-convert_video(
+	convert_video(
     model,                           # The loaded model, can be on any device (cpu or cuda).
     input_source=args.input_path,        # A video file or an image sequence directory.
     downsample_ratio=None,           # [Optional] If None, make downsampled max size be 512px.
