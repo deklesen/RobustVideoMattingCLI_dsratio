@@ -12,13 +12,14 @@ if __name__ == '__main__':
 	parser.add_argument("--output_composed", type=str, help="Output Composed Path")
 	parser.add_argument("--output_raw_pred", type=str,  help="Output Raw Prediction Path")
 	parser.add_argument("--save_frames", action='store_true',  help="Save Frames Instead of Videos")
+	parser.add_argument("--downsample_ratio", type=float, help="Downsample Ratio")
 
 	args = parser.parse_args()
 
 	convert_video(
     model,                           # The loaded model, can be on any device (cpu or cuda).
     input_source=args.input_path,        # A video file or an image sequence directory.
-    downsample_ratio=None,           # [Optional] If None, make downsampled max size be 512px.
+    downsample_ratio=args.downsample_ratio,  # [Optional] If None, make downsampled max size be 512px.
     output_type='png_sequence' if args.save_frames else 'video',             # Choose "video" or "png_sequence"
     output_composition=args.output_composed,    # File path if video; directory path if png sequence.
     output_alpha=args.output_alpha,          # [Optional] Output the raw alpha prediction.
